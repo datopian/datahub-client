@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "ava -v",
-    "watch:test": "npm t -- --watch"
+    "watch:test": "npm t -- --watch",
+    "lint": "xo --quiet"
   },
   "xo": {
     "space": true,
