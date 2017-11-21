@@ -4,7 +4,29 @@
   "description": "APIs for interacting with DataHub",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ava -v",
+    "watch:test": "npm t -- --watch"
+  },
+  "xo": {
+    "space": true,
+    "semicolon": false,
+    "rules": {
+      "no-var": "warn",
+      "no-use-before-define": 1,
+      "no-await-in-loop": 1,
+      "import/prefer-default-export": 1,
+      "no-negated-condition": 1,
+      "guard-for-in": 1
+    },
+    "ignores": [
+      "test/fixtures/*/**"
+    ]
+  },
+  "ava": {
+    "failFast": false,
+    "files": [
+      "test/*test.js"
+    ]
   },
   "repository": {
     "type": "git",
@@ -15,5 +37,26 @@
   "bugs": {
     "url": "https://github.com/datahq/datahub/issues"
   },
-  "homepage": "https://github.com/datahq/datahub#readme"
+  "homepage": "https://github.com/datahq/datahub#readme",
+  "dependencies": {
+    "cli-table": "^0.3.1",
+    "data.js": "^0.9.10",
+    "datapackage": "git+https://github.com/anuveyatsu/datapackage-js-temp.git",
+    "lodash": "^4.17.4",
+    "markdown-table": "^1.1.1",
+    "nconf": "^0.9.1",
+    "nock": "^9.1.0",
+    "node-fetch": "^1.7.3",
+    "opn": "^5.1.0",
+    "tableschema": "1.0.0-alpha.14",
+    "tv4": "^1.3.0",
+    "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "ava": "^0.19.1",
+    "xo": "^0.18.2",
+    "cross-spawn": "^5.1.0",
+    "inquirer-test": "^1.0.5",
+    "sinon": "^4.1.2"
+  }
 }
