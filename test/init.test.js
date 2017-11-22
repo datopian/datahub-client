@@ -6,16 +6,6 @@ const {ENTER} = require('inquirer-test')
 
 const {scanDir, addResource, buildSchema} = require('../lib/init')
 
-const cliPath = path.join(__dirname, '../bin/data-init.js')
-
-test.serial.skip('runs init command with data input', async t => {
-  const result = await (run(cliPath, [
-    'my-datapackage', ENTER
-  ]))
-  t.true(result.includes('? Enter Data Package name (scratchpad)'))
-  t.true(result.includes('my-datapackage'))
-})
-
 test.serial('checks scanDir function', async t => {
   const res = await scanDir('test/fixtures/readdirTest/')
   const exp = {

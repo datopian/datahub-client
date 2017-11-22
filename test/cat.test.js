@@ -2,7 +2,6 @@ const test = require('ava')
 
 const {File} = require('data.js')
 const {writers} = require('../lib/cat')
-const {runcli} = require('./cli.test.js')
 const {streamToString} = require('../lib/utils/stream')
 
 const resource = File.load('test/fixtures/sample.csv')

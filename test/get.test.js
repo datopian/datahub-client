@@ -5,7 +5,6 @@ const nock = require('nock')
 const {Dataset} = require('data.js')
 
 const {get} = require('../lib/get.js')
-const {runcli} = require('./cli.test.js')
 
 nock('https://test.com')
   .get('/finance-vix/datapackage.json')
@@ -32,22 +31,4 @@ test('get function', async t => {
   const res = await get(dataset)
   // Now returned res has length of 3 due to datapackage.json and readme
   t.is(res.length, 3)
-})
-
-// =====================
-// CLI tests
-test.skip('get command with dataset', async t => {
-  const identifier = 'test/fixtures/finance-vix'
-  const result = await runcli('get', identifier)
-  const stdout = result.stdout.split('\n')
-  t.true(stdout[0].includes('Time elapsed:'))
-  t.true(stdout[1].includes('Dataset/file is saved in "finance-vix"'))
-})
-
-test.skip('get command with file', async t => {
-  const identifier = 'test/fixtures/sample.csv'
-  const result = await runcli('get', identifier)
-  const stdout = result.stdout.split('\n')
-  t.true(stdout[0].includes('Time elapsed:'))
-  t.true(stdout[1].includes('Dataset/file is saved in "sample.csv"'))
 })
