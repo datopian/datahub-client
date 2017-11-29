@@ -47,7 +47,7 @@ test('validate function with invalid resource', async t => {
   const basePath = path.join(__dirname, './fixtures/invalid-finance-vix/')
   const descriptor = require(path.join(basePath, 'datapackage.json'))
   const out = await validate(descriptor, basePath)
-  t.true(out[0].toString().includes('Error: Wrong type for header: VIXOpen and value: 17.96'))
+  t.is(out.errors[0].message, 'The value "17.96" in column "VIXOpen" is not type "date" and format "default"')
 })
 
 // ====================================
@@ -69,7 +69,8 @@ test('validateData fails if data is not valid against schema', async t => {
   const descriptor = dpjson.resources[0]
   const path_ = path.join(basePath, descriptor.path)
   const error = await t.throws(validateData(descriptor.schema, path_))
-  t.true(error[0].toString().includes('Error: Wrong type for header: VIXOpen and value: 17.96'))
+  t.is(error.errors[0].message, 'The value "17.96" in column "VIXOpen" is not type "date" and format "default"')
+  // t.true(error[0].toString().includes('Error: Wrong type for header: VIXOpen and value: 17.96'))
 })
 
 // ====================================
