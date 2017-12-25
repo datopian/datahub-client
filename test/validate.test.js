@@ -7,7 +7,7 @@ const {validate, validateMetadata, validateData, Profile} = require('../lib/vali
 nock('http://example.com')
   .persist()
   .get('/data-package.json')
-  .replyWithFile(200, path.join(__dirname, '../lib/schema/data-package.json'))
+  .replyWithFile(200, path.join(__dirname, './fixtures/schema/data-package.json'))
   .get('/profile.json')
   .replyWithError(400)
 
@@ -113,15 +113,16 @@ const PROFILES = [
 
 PROFILES.forEach(name => {
   test(`Profile.load method for ${name}`, async t => {
-    const jsonschema = require(`../lib/schema/${name}.json`)
-    const profile = await Profile.load(name)
+    const jsonschema = require(`./fixtures/schema/${name}.json`)
+    const defaultProfile = 'https://frictionlessdata.io/schemas/data-package.json'
+    const profile = await Profile.load(defaultProfile)
     t.deepEqual(profile.jsonschema, jsonschema)
   })
 })
 
-test('Prfile.load method for remote', async t => {
+test('Profile.load method for remote', async t => {
   const url = 'http://example.com/data-package.json'
-  const jsonschema = require('../lib/schema/data-package.json')
+  const jsonschema = require('./fixtures/schema/data-package.json')
   const profile = await Profile.load(url)
   t.deepEqual(profile.name, 'data-package')
   t.deepEqual(profile.jsonschema, jsonschema)
