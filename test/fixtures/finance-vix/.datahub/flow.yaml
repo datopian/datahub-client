@@ -8,8 +8,8 @@ inputs:
 - kind: datapackage
   parameters:
     resource-mapping:
-      vix-daily: http:/testing.com/vixcurrent.csv
-  url: http:/testing.com/.datahub/datapackage.json
+      vix-daily: http://testing.com/vixcurrent.csv
+  url: http://testing.com/.datahub/datapackage.json
 processing:
   -
     input: vix-daily

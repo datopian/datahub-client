@@ -48,6 +48,11 @@ const finVixInfo = {
 
 const rawstoreUrl = 'https://s3-us-west-2.amazonaws.com'
 
+const flowPushNock = nock('http://testing.com')
+  .persist()
+  .get('/.datahub/datapackage.json')
+  .reply(200, {name: 'name'})
+
 const authorizeForServices = nock(config.api, {reqheaders: {'Auth-Token': 't35tt0k3N'}})
   .persist()
   .get('/auth/authorize?service=rawstore')
@@ -301,11 +306,12 @@ const apiSpecStore3 = nock(config.api, {
     inputs: [
       {
         kind: 'datapackage',
-        url: 'http:/testing.com/.datahub/datapackage.json',
+        url: 'http://testing.com/.datahub/datapackage.json',
         parameters: {
           'resource-mapping': {
-            'vix-daily': 'http:/testing.com/vixcurrent.csv'
-          }
+            'vix-daily': 'http://testing.com/vixcurrent.csv'
+          },
+          'descriptor': {name: 'name'}
         }
       }
     ],
