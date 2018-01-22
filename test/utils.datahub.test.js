@@ -3,7 +3,7 @@ const test = require('ava')
 const nock = require('nock')
 const urljoin = require('url-join')
 const {Dataset, File} = require('data.js')
-
+const FinanceDp = require('./fixtures/finance-vix/datapackage.json')
 const {DataHub, processExcelSheets, handleOutputs} = require('../lib/utils/datahub.js')
 
 test('Can instantiate DataHub', t => {
@@ -42,6 +42,14 @@ const finVixInfo = {
   'datapackage.json': {
     length: 2830,
     md5: 's6Ex9JHrfrGSkEF7Gin8jg==',
+    name: 'datapackage.json'
+  }
+}
+
+const finVixInfoWithoutResources = {
+  'datapackage.json': {
+    length: 740,
+    md5: '5BU6f/3L1GigyvQ4nEHoKA==',
     name: 'datapackage.json'
   }
 }
@@ -143,6 +151,35 @@ const rawstoreAuthorize2 = nock(config.api, {reqheaders: {'Auth-Token': 'authz.t
       }
     }
   })
+
+const rawstoreAuthorize3 = nock(config.api, {reqheaders: {'Auth-Token': 'authz.token'}})
+    .persist()
+    .post('/rawstore/authorize', {
+      metadata: {
+        owner: config.profile.id,
+        findability: 'published'
+      },
+      filedata: finVixInfoWithoutResources
+    })
+    .reply(200, {
+      filedata: {
+        'datapackage.json': {
+          md5: finVixInfoWithoutResources['datapackage.json'].md5,
+          length: finVixInfoWithoutResources['datapackage.json'].length,
+          name: 'datapackage.json',
+          // eslint-disable-next-line camelcase
+          upload_query: {
+            key: finVixInfoWithoutResources['datapackage.json'].md5,
+            policy: '...',
+            'x-amz-algorithm': 'AWS4-HMAC-SHA256',
+            'x-amz-credential': 'XXX',
+            'x-amz-signature': 'YYY'
+          },
+          // eslint-disable-next-line camelcase
+          upload_url: rawstoreUrl
+        }
+      }
+    })
 
 const rawstoreAuthorizeRemoteResource = nock(config.api, {reqheaders: {'Auth-Token': 'authz.token'}})
   .persist()
@@ -306,12 +343,12 @@ const apiSpecStore3 = nock(config.api, {
     inputs: [
       {
         kind: 'datapackage',
-        url: 'http://testing.com/.datahub/datapackage.json',
+        url: 'https://s3-us-west-2.amazonaws.com/iwWrmUOdQ2tuOPx8P5wU7w==',
         parameters: {
           'resource-mapping': {
             'vix-daily': 'http://testing.com/vixcurrent.csv'
           },
-          'descriptor': {name: 'name'}
+          'descriptor': FinanceDp
         }
       }
     ],
@@ -349,6 +386,8 @@ const signurl = nock(config.api, {reqheaders: {'Auth-Token': 'authz.token'}})
   .reply(200, {url: 'https://s3-us-west-2.amazonaws.com/zqYInZMy1fFndkTED3QUPQ=='})
   .get('/rawstore/presign?ownerid=test-userid&url=https://s3-us-west-2.amazonaws.com/iwWrmUOdQ2tuOPx8P5wU7w==')
   .reply(200, {url: 'https://s3-us-west-2.amazonaws.com/m84YSonibUrw5Mg8QbCNHA=='})
+  .get('/rawstore/presign?ownerid=test-userid&url=https://s3-us-west-2.amazonaws.com/5BU6f/3L1GigyvQ4nEHoKA==')
+  .reply(200, {url: 'https://s3-us-west-2.amazonaws.com/iwWrmUOdQ2tuOPx8P5wU7w=='})
 
 
 test('push works with packaged dataset', async t => {
@@ -366,7 +405,9 @@ test('push works with packaged dataset', async t => {
 })
 
 test('push-flow works', async t => {
-  await datahub.pushFlow('test/fixtures/finance-vix/.datahub/flow.yaml')
+  await datahub.pushFlow(
+    'test/fixtures/finance-vix/.datahub/flow.yaml',
+    'test/fixtures/finance-vix/datapackage.json')
   t.is(apiSpecStore3.isDone(), true)
 })
 
