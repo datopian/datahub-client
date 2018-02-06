@@ -1011,13 +1011,17 @@ csv-generate@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/csv-generate/-/csv-generate-1.1.2.tgz#ec6b00edaed6e59ad9c20582f4c364e28b146240"
 
-csv-parse@^1.1.0, csv-parse@^1.2.1, csv-parse@^1.3.3:
+csv-parse@^1.2.1, csv-parse@^1.3.3:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/csv-parse/-/csv-parse-1.3.3.tgz#d1cfd8743c2f849a0abb2fd544db56695d19a490"
 
 csv-parse@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/csv-parse/-/csv-parse-2.0.0.tgz#4ea22c973233987f07688c601a2d460234ff56d1"
+
+csv-sniffer@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/csv-sniffer/-/csv-sniffer-0.1.1.tgz#d641017728004615767b6dce89ce2076efb0f0b7"
 
 csv-stringify@^1.1.2:
   version "1.1.2"
@@ -1068,29 +1072,21 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
-data.js@^0.9.10:
-  version "0.9.11"
-  resolved "https://registry.yarnpkg.com/data.js/-/data.js-0.9.11.tgz#56f3c1b75eb0756149d93217b6b139f2df026d1b"
+data.js@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/data.js/-/data.js-0.10.0.tgz#0716b53a68627ccaf300eaa4fbec290381a5028f"
   dependencies:
     chardet "^0.1.0"
     csv-parse "^1.2.1"
+    csv-sniffer "^0.1.1"
     lodash "^4.17.4"
     mime-types "^2.1.16"
     node-fetch "^1.7.2"
     stream-to-array "^2.3.0"
+    stream-to-string "^1.1.0"
     tableschema "^1.2.0"
     url-join "^2.0.2"
-    xlsx "^0.11.2"
-
-"datapackage@git+https://github.com/anuveyatsu/datapackage-js-temp.git":
-  version "0.8.3"
-  resolved "git+https://github.com/anuveyatsu/datapackage-js-temp.git#f5c48c4dab8a21d1c4d9036a05b8214ddd78996c"
-  dependencies:
-    isomorphic-fetch "^2.2.1"
-    json-lint "^0.1.0"
-    jsontableschema "^0.2.2"
-    lodash "^4.13.1"
-    tv4 "^1.2.7"
+    xlsx "0.11.8"
 
 date-time@^0.1.1:
   version "0.1.1"
@@ -2274,13 +2270,6 @@ isobject@^2.0.0:
   dependencies:
     isarray "1.0.0"
 
-isomorphic-fetch@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/isomorphic-fetch/-/isomorphic-fetch-2.2.1.tgz#611ae1acf14f5e81f729507472819fe9733558a9"
-  dependencies:
-    node-fetch "^1.0.1"
-    whatwg-fetch ">=0.10.0"
-
 isstream@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
@@ -2377,10 +2366,6 @@ jsesc@~0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-0.5.0.tgz#e7dee66e35d6fc16f710fe91d5cf69f70f08911d"
 
-json-lint@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/json-lint/-/json-lint-0.1.0.tgz#45b03fba86c4f30f2c6e70aa73a90d3fe18f9803"
-
 json-schema@0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/json-schema/-/json-schema-0.2.3.tgz#b480c892e59a2f05954ce727bd3f2a4e882f9e13"
@@ -2406,18 +2391,6 @@ jsonify@~0.0.0:
 jsonpointer@^4.0.0:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/jsonpointer/-/jsonpointer-4.0.1.tgz#4fd92cb34e0e9db3c89c8622ecf51f9b978c6cb9"
-
-jsontableschema@^0.2.2:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/jsontableschema/-/jsontableschema-0.2.3.tgz#cde820ea41e6e6e851c92f70b80a34ad36d10704"
-  dependencies:
-    csv-parse "^1.1.0"
-    d3-time-format "^0.3.2"
-    isomorphic-fetch "^2.2.1"
-    lodash "^4.13.1"
-    moment "^2.13.0"
-    stream-transform "^0.1.1"
-    tv4 "^1.2.7"
 
 jsprim@^1.2.2:
   version "1.4.1"
@@ -2700,10 +2673,6 @@ minimist@^1.1.3, minimist@^1.2.0:
   dependencies:
     minimist "0.0.8"
 
-moment@^2.13.0:
-  version "2.19.2"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.2.tgz#8a7f774c95a64550b4c7ebd496683908f9419dbe"
-
 moment@~2.18.0:
   version "2.18.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
@@ -2774,7 +2743,7 @@ nock@^9.1.0:
     qs "^6.0.2"
     semver "^5.3.0"
 
-node-fetch@^1.0.1, node-fetch@^1.7.2, node-fetch@^1.7.3:
+node-fetch@^1.7.2, node-fetch@^1.7.3:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-1.7.3.tgz#980f6f72d85211a5347c6b2bc18c5b84c3eb47ef"
   dependencies:
@@ -3153,6 +3122,10 @@ progress@^1.1.8:
 progress@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.0.tgz#8a1be366bf8fc23db2bd23f10c6fe920b4389d1f"
+
+promise-polyfill@^1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/promise-polyfill/-/promise-polyfill-1.1.6.tgz#cd04eff46f5c95c3a7d045591d79b5e3e01f12d7"
 
 propagate@0.4.0:
   version "0.4.0"
@@ -3605,9 +3578,11 @@ stream-to-async-iterator@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/stream-to-async-iterator/-/stream-to-async-iterator-0.2.0.tgz#bef5c885e9524f98b2fa5effecc357bd58483780"
 
-stream-transform@^0.1.1:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/stream-transform/-/stream-transform-0.1.2.tgz#7d8e6b4e03ac4781778f8c79517501bfb0762a9f"
+stream-to-string@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/stream-to-string/-/stream-to-string-1.1.0.tgz#39210b01317e6abb35e854538e013037b6a35940"
+  dependencies:
+    promise-polyfill "^1.1.6"
 
 stream-transform@^0.2.2:
   version "0.2.2"
@@ -3943,10 +3918,6 @@ voc@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/voc/-/voc-1.0.0.tgz#5465c0ce11d0881f7d8e36d8ca587043f33a25ae"
 
-whatwg-fetch@>=0.10.0:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-2.0.3.tgz#9c84ec2dcf68187ff00bc64e1274b442176e1c84"
-
 which@^1.2.9:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/which/-/which-1.3.0.tgz#ff04bdfc010ee547d780bec38e1ac1c2777d253a"
@@ -4035,7 +4006,19 @@ xdg-basedir@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/xdg-basedir/-/xdg-basedir-3.0.0.tgz#496b2cc109eca8dbacfe2dc72b603c17c5870ad4"
 
-xlsx@^0.11.10, xlsx@^0.11.2:
+xlsx@0.11.8:
+  version "0.11.8"
+  resolved "https://registry.yarnpkg.com/xlsx/-/xlsx-0.11.8.tgz#2ec1969df1eb6d23a016a8ee1cc7c6f970fed579"
+  dependencies:
+    adler-32 "~1.1.0"
+    cfb "~1.0.0"
+    codepage "~1.11.0"
+    commander "~2.11.0"
+    crc-32 "~1.1.1"
+    exit-on-epipe "~1.0.1"
+    ssf "~0.10.1"
+
+xlsx@^0.11.10:
   version "0.11.10"
   resolved "https://registry.yarnpkg.com/xlsx/-/xlsx-0.11.10.tgz#fc1fe4729c0fc011ab10427c8967b91863344643"
   dependencies:
