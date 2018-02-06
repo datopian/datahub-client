@@ -1,10 +1,10 @@
 const path = require('path')
 const test = require('ava')
-const Datapackage = require('datapackage').Datapackage
+const {Dataset} = require('data.js')
 const run = require('inquirer-test')
 const {ENTER} = require('inquirer-test')
 
-const {scanDir, addResource, buildSchema} = require('../lib/init')
+const {scanDir, addResource} = require('../lib/init')
 
 test.serial('checks scanDir function', async t => {
   const res = await scanDir('test/fixtures/readdirTest/')
@@ -17,75 +17,55 @@ test.serial('checks scanDir function', async t => {
 })
 
 test.serial('adding resources - addResource function', async t => {
-  const dpObj = await new Datapackage('test/fixtures/dp-test/datapackage.json')
+  const dpObj = await Dataset.load('test/fixtures/dp-test/datapackage.json')
 
   t.true(dpObj.resources.length === 1)
-  await addResource('second-resource.csv', dpObj)
+  const path_ = path.resolve(__dirname, './fixtures/sample.csv')
+  await addResource(path_, dpObj)
   t.true(dpObj.resources.length === 2)
-  t.is(dpObj.resources[1].name, 'second-resource')
+  t.is(dpObj.resources[1].descriptor.name, 'sample')
 })
 
 test.serial('adding tabular data should include schema', async t => {
-  const dpObj = await new Datapackage('test/fixtures/dp-test/datapackage.json')
+  const dpObj = await Dataset.load('test/fixtures/dp-test/datapackage.json')
   const expResourceDescriptor = {
-    name: 'second-resource',
-    path: 'second-resource.csv',
+    name: 'sample',
+    path: 'sample.csv',
     format: 'csv',
     schema: {
       fields: [
         {
           format: 'default',
-          name: 'a',
+          name: 'number',
+          type: 'integer'
+        },
+        {
+          format: 'default',
+          name: 'string',
           type: 'string'
         },
         {
           format: 'default',
-          name: 'b',
-          type: 'date'
-        },
-        {
-          format: 'default',
-          name: 'c',
-          type: 'integer'
+          name: 'boolean',
+          type: 'boolean'
         }
       ]
     }
   }
-  await addResource('second-resource.csv', dpObj)
+  const path_ = path.resolve(__dirname, './fixtures/sample.csv')
+  await addResource(path_, dpObj)
   t.deepEqual(dpObj.resources[1].descriptor.schema.fields, expResourceDescriptor.schema.fields)
 })
 
 test.serial('adding non tabular file', async t => {
-  const dpObj = await new Datapackage('test/fixtures/dp-test/datapackage.json')
+  const dpObj = await Dataset.load('test/fixtures/dp-test/datapackage.json')
   const expResourceDescriptor = {
     name: 'second-resource-non-tabular',
     path: 'second-resource-non-tabular.json',
-    format: 'json'
+    pathType: "local",
+    format: 'json',
+    mediatype: "application/json"
   }
   await addResource('second-resource-non-tabular.json', dpObj)
   t.deepEqual(dpObj.resources[1].descriptor, expResourceDescriptor)
-})
-
-test.serial('how buildSchema works', async t => {
-  const res = await buildSchema('test/fixtures/readdirTest/sample1.csv')
-  const exp = {
-    fields: [
-      {
-        format: 'default',
-        name: 'number',
-        type: 'integer'
-      },
-      {
-        format: 'default',
-        name: 'string',
-        type: 'string'
-      },
-      {
-        format: 'default',
-        name: 'boolean',
-        type: 'boolean'
-      }
-    ]
-  }
-  t.deepEqual(res.fields, exp.fields)
 })
