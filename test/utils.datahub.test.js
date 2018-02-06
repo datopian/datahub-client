@@ -4,7 +4,7 @@ const nock = require('nock')
 const urljoin = require('url-join')
 const {Dataset, File} = require('data.js')
 const FinanceDp = require('./fixtures/finance-vix/datapackage.json')
-const {DataHub, processExcelSheets, handleOutputs} = require('../lib/utils/datahub.js')
+const {DataHub, getProcessingSteps, handleOutputs} = require('../lib/utils/datahub.js')
 
 test('Can instantiate DataHub', t => {
   const apiUrl = 'https://apifix.datahub.io'
@@ -643,8 +643,8 @@ test('push works with package with remote resource', async t => {
   t.is(apiSpecStore.isDone(), true)
 })
 
-// processExcelSheets function
-test('processExcelSheets function works', async t => {
+// getProcessingSteps function
+test('getProcessingSteps function works for Excel', async t => {
   const filePath = 'test/fixtures/sample-2sheets.xlsx'
   const pathParts = path.parse(filePath)
   const file = File.load(pathParts.base, {basePath: pathParts.dir})
@@ -654,15 +654,40 @@ test('processExcelSheets function works', async t => {
   }
   const dataset = await Dataset.load(metadata)
   dataset.addResource(file)
-  let processing = await processExcelSheets(dataset.resources)
+  let processing = await getProcessingSteps(dataset.resources)
   t.is(processing[0].input, 'sample-2sheets')
   t.is(processing[0].output, 'sample-2sheets-sheet-1')
   t.is(processing[0].schema.fields[0].name, 'header1')
-  processing = await processExcelSheets(dataset.resources, 'all')
+  processing = await getProcessingSteps(dataset.resources, 'all')
   t.is(processing[1].output, 'sample-2sheets-sheet-2')
-  processing = await processExcelSheets(dataset.resources, '2')
+  processing = await getProcessingSteps(dataset.resources, '2')
   t.is(processing.length, 1)
   t.is(processing[0].output, 'sample-2sheets-sheet-2')
+})
+
+test('getProcessingSteps function works for CSV with dialect', async t => {
+  const filePath = 'test/fixtures/semicolon-delimited.csv'
+  const pathParts = path.parse(filePath)
+  const file = File.load(pathParts.base, {basePath: pathParts.dir})
+  await file.addSchema()
+  const metadata = {
+    name: 'test',
+    resources: []
+  }
+  const dataset = await Dataset.load(metadata)
+  dataset.addResource(file)
+  let processing = await getProcessingSteps(dataset.resources)
+  let expected = {
+    input: 'semicolon-delimited',
+    output: 'semicolon-delimited',
+    tabulator: {
+      delimiter: ';',
+      quotechar: '\"'
+    },
+    schema: file.descriptor.schema
+  }
+  t.is(processing.length, 1)
+  t.deepEqual(expected, processing[0])
 })
 
 // handleOutputs function
