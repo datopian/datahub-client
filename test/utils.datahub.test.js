@@ -683,8 +683,7 @@ test('getProcessingSteps function works for CSV with dialect', async t => {
     tabulator: {
       delimiter: ';',
       quotechar: '\"'
-    },
-    schema: file.descriptor.schema
+    }
   }
   t.is(processing.length, 1)
   t.deepEqual(expected, processing[0])

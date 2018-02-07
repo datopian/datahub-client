@@ -1,6 +1,6 @@
 {
   "name": "datahub-client",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "APIs for interacting with DataHub",
   "main": "index.js",
   "scripts": {
@@ -31,14 +31,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/datahq/datahub.git"
+    "url": "git+https://github.com/datahq/datahub-client.git"
   },
   "author": "Datopian",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/datahq/datahub/issues"
+    "url": "https://github.com/datahq/datahub-client/issues"
   },
-  "homepage": "https://github.com/datahq/datahub#readme",
+  "homepage": "https://github.com/datahq/datahub-client#readme",
   "dependencies": {
     "cli-table": "^0.3.1",
     "csv-parse": "^2.0.0",
