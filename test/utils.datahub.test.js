@@ -733,7 +733,8 @@ test('getProcessingSteps function works for CSV with dialect', async t => {
     output: 'semicolon-delimited',
     tabulator: {
       delimiter: ';',
-      quotechar: '\"'
+      quotechar: '\"',
+      escapechar: '\"'
     }
   }
   t.is(processing.length, 1)
