@@ -60,12 +60,13 @@ test.serial('adding tabular data should include schema', async t => {
 test.serial('adding non tabular file', async t => {
   const dpObj = await Dataset.load('test/fixtures/dp-test/datapackage.json')
   const expResourceDescriptor = {
+    encoding: "ISO-8859-9",
     name: 'second-resource-non-tabular',
-    path: 'second-resource-non-tabular.json',
+    path: 'test/fixtures/dp-test/second-resource-non-tabular.json',
     pathType: "local",
     format: 'json',
     mediatype: "application/json"
   }
-  await addResource('second-resource-non-tabular.json', dpObj)
+  await addResource('test/fixtures/dp-test/second-resource-non-tabular.json', dpObj)
   t.deepEqual(dpObj.resources[1].descriptor, expResourceDescriptor)
 })
