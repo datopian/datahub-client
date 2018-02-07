@@ -22,7 +22,7 @@ test('validate function', async t => {
     resources: [
       {
         name: 'name',
-        path: 'path'
+        path: 'test/fixtures/sample.csv'
       }
     ]
   }

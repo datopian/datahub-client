@@ -40,8 +40,8 @@ const finVixInfo = {
     name: 'vix-daily'
   },
   'datapackage.json': {
-    length: 2830,
-    md5: 's6Ex9JHrfrGSkEF7Gin8jg==',
+    length: 2873,
+    md5: 'ImOW3FzZiTDx6C/MvCSQAw==',
     name: 'datapackage.json'
   }
 }
@@ -71,8 +71,8 @@ const encodedInfo = {
     "name":"utf"
   },
   "datapackage.json": {
-    "length":668,
-    "md5":"6ftQmYu/p8UpG4KtRWDx3A==",
+    "length":908,
+    "md5":"DyOPB2UGU8sSchOTw5YS7Q==",
     "name":"datapackage.json"
   }
 }
@@ -287,8 +287,8 @@ const rawstoreAuthorizeRemoteResource = nock(config.api, {reqheaders: {'Auth-Tok
     },
     "filedata": {
       "datapackage.json": {
-        "length": 257,
-        "md5": "iwWrmUOdQ2tuOPx8P5wU7w==",
+        "length": 276,
+        "md5": "UNDqJBkLC+npLsyt0zVtPQ==",
         "name": "datapackage.json"
       }
     }
@@ -296,12 +296,12 @@ const rawstoreAuthorizeRemoteResource = nock(config.api, {reqheaders: {'Auth-Tok
   .reply(200, {
     filedata: {
       'datapackage.json': {
-        md5: "iwWrmUOdQ2tuOPx8P5wU7w==",
+        md5: "UNDqJBkLC+npLsyt0zVtPQ==",
         length: 257,
         name: 'datapackage.json',
         // eslint-disable-next-line camelcase
         upload_query: {
-          key: "iwWrmUOdQ2tuOPx8P5wU7w==",
+          key: "UNDqJBkLC+npLsyt0zVtPQ==",
           policy: '...',
           'x-amz-algorithm': 'AWS4-HMAC-SHA256',
           'x-amz-credential': 'XXX',
@@ -370,7 +370,7 @@ const apiSpecStoreRemoteResource = nock(config.api, {
       "inputs": [
         {
           "kind": "datapackage",
-          "url": "https://s3-us-west-2.amazonaws.com/iwWrmUOdQ2tuOPx8P5wU7w==",
+          "url": "https://s3-us-west-2.amazonaws.com/UNDqJBkLC+npLsyt0zVtPQ==",
           "parameters": {
             "resource-mapping": {}
           }
@@ -440,7 +440,7 @@ const apiSpecStore3 = nock(config.api, {
     inputs: [
       {
         kind: 'datapackage',
-        url: 'https://s3-us-west-2.amazonaws.com/iwWrmUOdQ2tuOPx8P5wU7w==',
+        url: 'https://s3-us-west-2.amazonaws.com/UNDqJBkLC+npLsyt0zVtPQ==',
         parameters: {
           'resource-mapping': {
             'vix-daily': 'http://testing.com/vixcurrent.csv'
@@ -480,67 +480,116 @@ const apiSpecStoreEncoding = nock(config.api, {
 })
   .persist()
   .post('/source/upload', {
-    "meta":{
-      "version":1,
-      "ownerid":"test-userid",
-      "owner":"test-username",
-      "dataset":"iso",
-      "findability":"unlisted"
+    "meta": {
+      "version": 1,
+      "ownerid": "test-userid",
+      "owner": "test-username",
+      "dataset": "iso",
+      "findability": "unlisted"
     },
-    "inputs":[
+    "inputs": [
       {
-        "kind":"datapackage",
-        "url":"https://s3-us-west-2.amazonaws.com/6ftQmYu/p8UpG4KtRWDx3A==",
-        "parameters":{
-          "resource-mapping":{
-            "western-macos-roman.csv":"https://s3-us-west-2.amazonaws.com/IQKcpyJFVG3AKDZ1XfpsFg==",
-            "iso8859.csv":"https://s3-us-west-2.amazonaws.com/9YPisX1dNWWwt6OshEm7hg==",
-            "utf8.csv":"https://s3-us-west-2.amazonaws.com/VEyDK+05c4GRdRA5cvcKVw=="},
-            "descriptor":{
-              "name":"iso",
-              "resources":[
-                {
-                  "name":"western-macos-roman",
-                  "path":"western-macos-roman.csv",
-                  "schema":{
-                    "fields":[
-                      {"name":"Country Name","type":"string"},
-                      {"name":"Country Code","type":"string"},
-                      {"name":"Year","type":"integer"},
-                      {"name":"Value","type":"integer"}
-                    ]
-                  }
+        "kind": "datapackage",
+        "url": "https://s3-us-west-2.amazonaws.com/DyOPB2UGU8sSchOTw5YS7Q==",
+        "parameters": {
+          "resource-mapping": {
+            "western-macos-roman.csv": "https://s3-us-west-2.amazonaws.com/IQKcpyJFVG3AKDZ1XfpsFg==",
+            "iso8859.csv": "https://s3-us-west-2.amazonaws.com/9YPisX1dNWWwt6OshEm7hg==",
+            "utf8.csv": "https://s3-us-west-2.amazonaws.com/VEyDK+05c4GRdRA5cvcKVw=="
+          },
+          "descriptor": {
+            "name": "iso",
+            "resources": [
+              {
+                "path": "western-macos-roman.csv",
+                "pathType": "local",
+                "name": "western-macos-roman",
+                "format": "csv",
+                "mediatype": "text/csv",
+                "schema": {
+                  "fields": [
+                    {
+                      "name": "Country Name",
+                      "type": "string"
+                    },
+                    {
+                      "name": "Country Code",
+                      "type": "string"
+                    },
+                    {
+                      "name": "Year",
+                      "type": "integer"
+                    },
+                    {
+                      "name": "Value",
+                      "type": "integer"
+                    }
+                  ]
                 },
-                {
-                  "name":"iso",
-                  "path":"iso8859.csv",
-                  "schema":{
-                    "fields":[
-                      {"name":"Country Name","type":"string"},
-                      {"name":"Country Code","type":"string"},
-                      {"name":"Year","type":"integer"},
-                      {"name":"Value","type":"integer"}
-                    ]
-                  }
+                "encoding": "windows-1252"
+              },
+              {
+                "path": "iso8859.csv",
+                "pathType": "local",
+                "name": "iso",
+                "format": "csv",
+                "mediatype": "text/csv",
+                "schema": {
+                  "fields": [
+                    {
+                      "name": "Country Name",
+                      "type": "string"
+                    },
+                    {
+                      "name": "Country Code",
+                      "type": "string"
+                    },
+                    {
+                      "name": "Year",
+                      "type": "integer"
+                    },
+                    {
+                      "name": "Value",
+                      "type": "integer"
+                    }
+                  ]
                 },
-                {
-                  "name":"utf",
-                  "path":"utf8.csv",
-                  "schema":{
-                    "fields":[
-                      {"name":"Country Name","type":"string"},
-                      {"name":"Country Code","type":"string"},
-                      {"name":"Year","type":"integer"},
-                      {"name":"Value","type":"integer"}
-                    ]
-                  }
-                }
-              ]
-            }
+                "encoding": "ISO-8859-1"
+              },
+              {
+                "path": "utf8.csv",
+                "pathType": "local",
+                "name": "utf",
+                "format": "csv",
+                "mediatype": "text/csv",
+                "schema": {
+                  "fields": [
+                    {
+                      "name": "Country Name",
+                      "type": "string"
+                    },
+                    {
+                      "name": "Country Code",
+                      "type": "string"
+                    },
+                    {
+                      "name": "Year",
+                      "type": "integer"
+                    },
+                    {
+                      "name": "Value",
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "encoding": "UTF-8"
+              }
+            ]
           }
         }
-      ]
-    }
+      }
+    ]
+  }
   )
   .reply(200, {
     success: true,
@@ -552,16 +601,16 @@ const signurl = nock(config.api, {reqheaders: {'Auth-Token': 'authz.token'}})
   .persist()
   .get('/rawstore/presign?ownerid=test-userid&url=https://s3-us-west-2.amazonaws.com/m84YSonibUrw5Mg8QbCNHA==')
   .reply(200, {url: 'https://s3-us-west-2.amazonaws.com/m84YSonibUrw5Mg8QbCNHA=='})
-  .get('/rawstore/presign?ownerid=test-userid&url=https://s3-us-west-2.amazonaws.com/s6Ex9JHrfrGSkEF7Gin8jg==')
-  .reply(200, {url: 'https://s3-us-west-2.amazonaws.com/s6Ex9JHrfrGSkEF7Gin8jg=='})
+  .get('/rawstore/presign?ownerid=test-userid&url=https://s3-us-west-2.amazonaws.com/ImOW3FzZiTDx6C/MvCSQAw==')
+  .reply(200, {url: 'https://s3-us-west-2.amazonaws.com/ImOW3FzZiTDx6C/MvCSQAw=='})
   .get('/rawstore/presign?ownerid=test-userid&url=https://s3-us-west-2.amazonaws.com/zqYInZMy1fFndkTED3QUPQ==')
   .reply(200, {url: 'https://s3-us-west-2.amazonaws.com/zqYInZMy1fFndkTED3QUPQ=='})
-  .get('/rawstore/presign?ownerid=test-userid&url=https://s3-us-west-2.amazonaws.com/iwWrmUOdQ2tuOPx8P5wU7w==')
+  .get('/rawstore/presign?ownerid=test-userid&url=https://s3-us-west-2.amazonaws.com/UNDqJBkLC+npLsyt0zVtPQ==')
   .reply(200, {url: 'https://s3-us-west-2.amazonaws.com/m84YSonibUrw5Mg8QbCNHA=='})
   .get('/rawstore/presign?ownerid=test-userid&url=https://s3-us-west-2.amazonaws.com/5BU6f/3L1GigyvQ4nEHoKA==')
-  .reply(200, {url: 'https://s3-us-west-2.amazonaws.com/iwWrmUOdQ2tuOPx8P5wU7w=='})
-  .get('/rawstore/presign?ownerid=test-userid&url=https://s3-us-west-2.amazonaws.com/6ftQmYu/p8UpG4KtRWDx3A==')
-  .reply(200, {url: 'https://s3-us-west-2.amazonaws.com/6ftQmYu/p8UpG4KtRWDx3A=='})
+  .reply(200, {url: 'https://s3-us-west-2.amazonaws.com/UNDqJBkLC+npLsyt0zVtPQ=='})
+  .get('/rawstore/presign?ownerid=test-userid&url=https://s3-us-west-2.amazonaws.com/DyOPB2UGU8sSchOTw5YS7Q==')
+  .reply(200, {url: 'https://s3-us-west-2.amazonaws.com/DyOPB2UGU8sSchOTw5YS7Q=='})
   .get('/rawstore/presign?ownerid=test-userid&url=https://s3-us-west-2.amazonaws.com/IQKcpyJFVG3AKDZ1XfpsFg==')
   .reply(200, {url: 'https://s3-us-west-2.amazonaws.com/IQKcpyJFVG3AKDZ1XfpsFg=='})
   .get('/rawstore/presign?ownerid=test-userid&url=https://s3-us-west-2.amazonaws.com/9YPisX1dNWWwt6OshEm7hg==')
