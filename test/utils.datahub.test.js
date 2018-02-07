@@ -40,8 +40,8 @@ const finVixInfo = {
     name: 'vix-daily'
   },
   'datapackage.json': {
-    length: 2854,
-    md5: 'm0kbjn9IxjopdBZo8bk0AA==',
+    length: 2830,
+    md5: 's6Ex9JHrfrGSkEF7Gin8jg==',
     name: 'datapackage.json'
   }
 }
@@ -71,8 +71,8 @@ const encodedInfo = {
     "name":"utf"
   },
   "datapackage.json": {
-    "length":737,
-    "md5":"jT+FS1ETWeNoGP1leT/6dQ==",
+    "length":668,
+    "md5":"6ftQmYu/p8UpG4KtRWDx3A==",
     "name":"datapackage.json"
   }
 }
@@ -490,55 +490,57 @@ const apiSpecStoreEncoding = nock(config.api, {
     "inputs":[
       {
         "kind":"datapackage",
-        "url":"https://s3-us-west-2.amazonaws.com/jT+FS1ETWeNoGP1leT/6dQ==",
+        "url":"https://s3-us-west-2.amazonaws.com/6ftQmYu/p8UpG4KtRWDx3A==",
         "parameters":{
           "resource-mapping":{
             "western-macos-roman.csv":"https://s3-us-west-2.amazonaws.com/IQKcpyJFVG3AKDZ1XfpsFg==",
             "iso8859.csv":"https://s3-us-west-2.amazonaws.com/9YPisX1dNWWwt6OshEm7hg==",
-            "utf8.csv":"https://s3-us-west-2.amazonaws.com/VEyDK+05c4GRdRA5cvcKVw=="
-          },
-          "descriptor":{
-            "name":"iso",
-            "resources":[
-              {
-                "name":"western-macos-roman",
-                "path":"western-macos-roman.csv",
-                "schema":{
-                  "fields":[
-                    {"name":"Country Name","type":"string"},
-                    {"name":"Country Code","type":"string"},
-                    {"name":"Year","type":"integer"},
-                    {"name":"Value","type":"integer"}
-                  ]
-                },"encoding":"windows-1252"
-              },
-              {
-                "name":"iso",
-                "path":"iso8859.csv",
-                "schema":{
-                  "fields":[
-                    {"name":"Country Name","type":"string"},
-                    {"name":"Country Code","type":"string"},
-                    {"name":"Year","type":"integer"},
-                    {"name":"Value","type":"integer"}
-                  ]
-                },"encoding":"ISO-8859-1"},
-              {
-                "name":"utf",
-                "path":"utf8.csv",
-                "schema":{
-                  "fields":[
-                    {"name":"Country Name","type":"string"},
-                    {"name":"Country Code","type":"string"},
-                    {"name":"Year","type":"integer"},
-                    {"name":"Value","type":"integer"}
-                  ]},"encoding":"UTF-8"}
-                ]
-              }
+            "utf8.csv":"https://s3-us-west-2.amazonaws.com/VEyDK+05c4GRdRA5cvcKVw=="},
+            "descriptor":{
+              "name":"iso",
+              "resources":[
+                {
+                  "name":"western-macos-roman",
+                  "path":"western-macos-roman.csv",
+                  "schema":{
+                    "fields":[
+                      {"name":"Country Name","type":"string"},
+                      {"name":"Country Code","type":"string"},
+                      {"name":"Year","type":"integer"},
+                      {"name":"Value","type":"integer"}
+                    ]
+                  }
+                },
+                {
+                  "name":"iso",
+                  "path":"iso8859.csv",
+                  "schema":{
+                    "fields":[
+                      {"name":"Country Name","type":"string"},
+                      {"name":"Country Code","type":"string"},
+                      {"name":"Year","type":"integer"},
+                      {"name":"Value","type":"integer"}
+                    ]
+                  }
+                },
+                {
+                  "name":"utf",
+                  "path":"utf8.csv",
+                  "schema":{
+                    "fields":[
+                      {"name":"Country Name","type":"string"},
+                      {"name":"Country Code","type":"string"},
+                      {"name":"Year","type":"integer"},
+                      {"name":"Value","type":"integer"}
+                    ]
+                  }
+                }
+              ]
             }
           }
-        ]
-      }
+        }
+      ]
+    }
   )
   .reply(200, {
     success: true,
@@ -550,16 +552,16 @@ const signurl = nock(config.api, {reqheaders: {'Auth-Token': 'authz.token'}})
   .persist()
   .get('/rawstore/presign?ownerid=test-userid&url=https://s3-us-west-2.amazonaws.com/m84YSonibUrw5Mg8QbCNHA==')
   .reply(200, {url: 'https://s3-us-west-2.amazonaws.com/m84YSonibUrw5Mg8QbCNHA=='})
-  .get('/rawstore/presign?ownerid=test-userid&url=https://s3-us-west-2.amazonaws.com/m0kbjn9IxjopdBZo8bk0AA==')
-  .reply(200, {url: 'https://s3-us-west-2.amazonaws.com/m0kbjn9IxjopdBZo8bk0AA=='})
+  .get('/rawstore/presign?ownerid=test-userid&url=https://s3-us-west-2.amazonaws.com/s6Ex9JHrfrGSkEF7Gin8jg==')
+  .reply(200, {url: 'https://s3-us-west-2.amazonaws.com/s6Ex9JHrfrGSkEF7Gin8jg=='})
   .get('/rawstore/presign?ownerid=test-userid&url=https://s3-us-west-2.amazonaws.com/zqYInZMy1fFndkTED3QUPQ==')
   .reply(200, {url: 'https://s3-us-west-2.amazonaws.com/zqYInZMy1fFndkTED3QUPQ=='})
   .get('/rawstore/presign?ownerid=test-userid&url=https://s3-us-west-2.amazonaws.com/iwWrmUOdQ2tuOPx8P5wU7w==')
   .reply(200, {url: 'https://s3-us-west-2.amazonaws.com/m84YSonibUrw5Mg8QbCNHA=='})
   .get('/rawstore/presign?ownerid=test-userid&url=https://s3-us-west-2.amazonaws.com/5BU6f/3L1GigyvQ4nEHoKA==')
   .reply(200, {url: 'https://s3-us-west-2.amazonaws.com/iwWrmUOdQ2tuOPx8P5wU7w=='})
-  .get('/rawstore/presign?ownerid=test-userid&url=https://s3-us-west-2.amazonaws.com/jT+FS1ETWeNoGP1leT/6dQ==')
-  .reply(200, {url: 'https://s3-us-west-2.amazonaws.com/jT+FS1ETWeNoGP1leT/6dQ=='})
+  .get('/rawstore/presign?ownerid=test-userid&url=https://s3-us-west-2.amazonaws.com/6ftQmYu/p8UpG4KtRWDx3A==')
+  .reply(200, {url: 'https://s3-us-west-2.amazonaws.com/6ftQmYu/p8UpG4KtRWDx3A=='})
   .get('/rawstore/presign?ownerid=test-userid&url=https://s3-us-west-2.amazonaws.com/IQKcpyJFVG3AKDZ1XfpsFg==')
   .reply(200, {url: 'https://s3-us-west-2.amazonaws.com/IQKcpyJFVG3AKDZ1XfpsFg=='})
   .get('/rawstore/presign?ownerid=test-userid&url=https://s3-us-west-2.amazonaws.com/9YPisX1dNWWwt6OshEm7hg==')
