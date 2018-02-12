@@ -1,6 +1,7 @@
 const path = require('path')
 const test = require('ava')
 const nock = require('nock')
+const {Dataset} = require('data.js')
 
 const {validate, validateMetadata, validateData, Profile} = require('../lib/validate')
 
@@ -26,27 +27,27 @@ test('validate function', async t => {
       }
     ]
   }
-  const valid = await validate(descriptor)
+  let dataset = await Dataset.load(descriptor)
+  const valid = await validate(dataset)
   t.true(valid)
 
   const invalidDescriptor = {
     resources: []
   }
-  const invalid = await validate(invalidDescriptor)
+  dataset = await Dataset.load(invalidDescriptor)
+  const invalid = await validate(dataset)
   t.true(invalid[0].toString().includes('Array is too short (0), minimum 1'))
 })
 
 test('validate function with resource', async t => {
-  const basePath = path.join(__dirname, './fixtures/finance-vix/')
-  const descriptor = require(path.join(basePath, 'datapackage.json'))
-  const out = await validate(descriptor, basePath)
+  const dataset = await Dataset.load('test/fixtures/finance-vix/')
+  const out = await validate(dataset)
   t.true(out)
 })
 
 test('validate function with invalid resource', async t => {
-  const basePath = path.join(__dirname, './fixtures/invalid-finance-vix/')
-  const descriptor = require(path.join(basePath, 'datapackage.json'))
-  const out = await validate(descriptor, basePath)
+  const dataset = await Dataset.load('test/fixtures/invalid-finance-vix/')
+  const out = await validate(dataset)
   t.is(out.errors[0].message, 'The value "17.96" in column "VIXOpen" is not type "date" and format "default"')
 })
 
