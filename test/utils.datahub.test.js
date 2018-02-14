@@ -734,7 +734,7 @@ test('getProcessingSteps function works for CSV with dialect', async t => {
     tabulator: {
       delimiter: ';',
       quotechar: '\"',
-      escapechar: '\"'
+      escapechar: undefined
     }
   }
   t.is(processing.length, 1)
