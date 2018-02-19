@@ -100,6 +100,29 @@ test('it returns list of errors if descriptor is invalid', async t => {
   t.true(error[0].toString().includes('Array is too short (0), minimum 1'))
 })
 
+test('validateMetadata does not allow insecure absolute resource.path ', async t =>{
+  const descriptor = {
+    name: 'invalid-descriptor',
+    resources: [
+      {name: 'valid', path: 'path'},
+      {name: 'invalid', path: '/root_path'},
+    ]
+  }
+  const error = await t.throws(validateMetadata(descriptor))
+  t.true(error.toString().includes('secur'))  // not secure; insecure; security reasons, etc
+})
+
+test('validateMetadata does not allow insecure parent relative resource.path', async t =>{
+  const descriptor = {
+    name: 'invalid-descriptor',
+    resources: [
+      {name: 'valid', path: 'path'},
+      {name: 'invalid', path: '../path'},
+    ]
+  }
+  const error = await t.throws(validateMetadata(descriptor))
+  t.true(error.toString().includes('secur'))  // not secure; insecure; security reasons, etc
+})
 // ====================================
 // Profile class
 // ====================================
