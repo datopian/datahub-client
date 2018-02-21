@@ -1,8 +1,9 @@
+Node client and utilities for interacting with https://DataHub.io and handling Data Packages.
+
 [![Build Status](https://travis-ci.org/datahq/datahub-client.svg?branch=master)](https://travis-ci.org/datahq/datahub-client)
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 [![Issues](https://img.shields.io/badge/issue-tracker-orange.svg)](https://github.com/datahq/datahub-client/issues)
 
-APIs for interacting with DataHub.
 
 # For developers
 
