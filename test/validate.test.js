@@ -115,7 +115,7 @@ const PROFILES = [
 PROFILES.forEach(name => {
   test(`Profile.load method for ${name}`, async t => {
     const jsonschema = require(`./fixtures/schema/${name}.json`)
-    const defaultProfile = 'https://frictionlessdata.io/schemas/data-package.json'
+    const defaultProfile = name
     const profile = await Profile.load(defaultProfile)
     t.deepEqual(profile.jsonschema, jsonschema)
   })
