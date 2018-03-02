@@ -1,6 +1,6 @@
 {
   "name": "datahub-client",
-  "version": "0.2.11",
+  "version": "0.3.0",
   "description": "APIs for interacting with DataHub",
   "main": "index.js",
   "scripts": {
@@ -43,7 +43,7 @@
     "cli-table": "^0.3.1",
     "csv-parse": "^2.0.0",
     "csv-stringify": "^2.0.0",
-    "data.js": "^0.10.0",
+    "data.js": "^0.11.0",
     "events": "^1.1.1",
     "form-data": "^2.3.1",
     "inquirer": "^4.0.0",
