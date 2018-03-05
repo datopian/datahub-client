@@ -60,7 +60,7 @@ test('it validateData function works with valid schema and data', async t => {
   const dpjson = require(path.join(basePath, 'datapackage.json'))
   const descriptor = dpjson.resources[0]
   const path_ = path.join(basePath, descriptor.path)
-  const valid = await validateData(descriptor.schema, path_)
+  const valid = await validateData(descriptor, path_)
   t.true(valid)
 })
 
@@ -69,7 +69,7 @@ test('validateData fails if data is not valid against schema', async t => {
   const dpjson = require(path.join(basePath, 'datapackage.json'))
   const descriptor = dpjson.resources[0]
   const path_ = path.join(basePath, descriptor.path)
-  const error = await t.throws(validateData(descriptor.schema, path_))
+  const error = await t.throws(validateData(descriptor, path_))
   t.is(error.errors[0].message, 'The value "17.96" in column "VIXOpen" is not type "date" and format "default"')
   // t.true(error[0].toString().includes('Error: Wrong type for header: VIXOpen and value: 17.96'))
 })
