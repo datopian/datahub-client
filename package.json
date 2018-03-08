@@ -4,7 +4,7 @@
   "description": "APIs for interacting with DataHub",
   "main": "index.js",
   "scripts": {
-    "test": "ava -v",
+    "test": "export env=test; ava -v",
     "watch:test": "npm t -- --watch",
     "lint": "xo --quiet"
   },
