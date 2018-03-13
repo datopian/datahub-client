@@ -4,7 +4,7 @@ const info = require('./lib/info')
 const init = require('./lib/init')
 const {login} = require('./lib/login')
 const {authenticate} = require('./lib/login')
-const validate = require('./lib/validate')
+const {Validator} = require('./lib/validate')
 
 const config = require('./lib/utils/config')
 const {DataHub} = require('./lib/utils/datahub')
@@ -19,7 +19,7 @@ module.exports = {
   init,
   login,
   authenticate,
-  validate,
+  Validator,
   config,
   DataHub
 }
