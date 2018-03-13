@@ -3,7 +3,7 @@ const test = require('ava')
 const nock = require('nock')
 const {Dataset} = require('data.js')
 
-const {validate, validateMetadata, validateData, Profile} = require('../lib/validate')
+const {Validator, Profile} = require('../lib/validate')
 
 nock('http://example.com')
   .persist()
@@ -16,7 +16,7 @@ nock('http://example.com')
 // validate function
 // ====================================
 
-test('validate function', async t => {
+test('validate method', async t => {
   // Returns true if valid
   const descriptor = {
     name: 'valid-descriptor',
@@ -27,40 +27,41 @@ test('validate function', async t => {
       }
     ]
   }
-  let dataset = await Dataset.load(descriptor)
-  const valid = await validate(dataset)
+  let validator = new Validator({identifier: descriptor})
+  const valid = await validator.validate()
   t.true(valid)
 
   const invalidDescriptor = {
     resources: []
   }
-  dataset = await Dataset.load(invalidDescriptor)
-  const invalid = await validate(dataset)
+  validator = new Validator({identifier: invalidDescriptor})
+  const invalid = await validator.validate()
   t.true(invalid[0].toString().includes('Array is too short (0), minimum 1'))
 })
 
-test('validate function with resource', async t => {
-  const dataset = await Dataset.load('test/fixtures/finance-vix/')
-  const out = await validate(dataset)
+test('validate method with resource', async t => {
+  const validator = new Validator({identifier: 'test/fixtures/finance-vix/'})
+  const out = await validator.validate()
   t.true(out)
 })
 
-test('validate function with invalid resource', async t => {
-  const dataset = await Dataset.load('test/fixtures/invalid-finance-vix/')
-  const out = await validate(dataset)
+test('validate method with invalid resource', async t => {
+  const validator = new Validator({identifier: 'test/fixtures/invalid-finance-vix/'})
+  const out = await validator.validate()
   t.is(out.errors[0].message, 'The value "17.96" in column "VIXOpen" is not type "date" and format "default"')
 })
 
 // ====================================
-// validateData funciton
+// validateData method
 // ====================================
 
-test('it validateData function works with valid schema and data', async t => {
+test('validateData works with valid schema and data', async t => {
   const basePath = path.join(__dirname, './fixtures/finance-vix/')
   const dpjson = require(path.join(basePath, 'datapackage.json'))
   const descriptor = dpjson.resources[0]
   const path_ = path.join(basePath, descriptor.path)
-  const valid = await validateData(descriptor, path_)
+  const validator = new Validator()
+  const valid = await validator.validateData(descriptor, path_)
   t.true(valid)
 })
 
@@ -69,16 +70,17 @@ test('validateData fails if data is not valid against schema', async t => {
   const dpjson = require(path.join(basePath, 'datapackage.json'))
   const descriptor = dpjson.resources[0]
   const path_ = path.join(basePath, descriptor.path)
-  const error = await t.throws(validateData(descriptor, path_))
+  const validator = new Validator()
+  const error = await t.throws(validator.validateData(descriptor, path_))
   t.is(error.errors[0].message, 'The value "17.96" in column "VIXOpen" is not type "date" and format "default"')
   // t.true(error[0].toString().includes('Error: Wrong type for header: VIXOpen and value: 17.96'))
 })
 
 // ====================================
-// validateMetadata function
+// validateMetadata method
 // ====================================
 
-test('it validateMetadata function works with valid descriptor', async t => {
+test('it validateMetadata method works with valid descriptor', async t => {
   const descriptor = {
     name: 'valid-descriptor',
     resources: [
@@ -88,7 +90,8 @@ test('it validateMetadata function works with valid descriptor', async t => {
       }
     ]
   }
-  const valid = await validateMetadata(descriptor)
+  const validator = new Validator()
+  const valid = await validator.validateMetadata(descriptor)
   t.true(valid)
 })
 
@@ -96,7 +99,8 @@ test('it returns list of errors if descriptor is invalid', async t => {
   const descriptor = {
     resources: []
   }
-  const error = await t.throws(validateMetadata(descriptor))
+  const validator = new Validator()
+  const error = await t.throws(validator.validateMetadata(descriptor))
   t.true(error[0].toString().includes('Array is too short (0), minimum 1'))
 })
 
