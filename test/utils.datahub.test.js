@@ -709,6 +709,8 @@ test('getProcessingSteps function works for Excel', async t => {
   t.is(processing[0].input, 'sample-2sheets')
   t.is(processing[0].output, 'sample-2sheets-sheet-1')
   t.is(processing[0].schema.fields[0].name, 'header1')
+  t.is(processing[0].schema.fields[0].type, 'string')
+  t.is(processing[0].schema.fields[1].type, 'number')
   processing = await getProcessingSteps(dataset.resources, 'all')
   t.is(processing[1].output, 'sample-2sheets-sheet-2')
   processing = await getProcessingSteps(dataset.resources, '2')
