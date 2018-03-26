@@ -1,6 +1,6 @@
 {
   "name": "datahub-client",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "APIs for interacting with DataHub",
   "main": "index.js",
   "scripts": {
