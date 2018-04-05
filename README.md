@@ -7,6 +7,7 @@ Node client and utilities for interacting with https://DataHub.io and handling D
 ## Introduction
 
 The [DataHub](http://datahub.io/) platform stores a lot of different datasets - which are packages of useful data alongside with the description (here is [the dataset specification](https://frictionlessdata.io/docs/data-package/)). The data, stored on the DataHub, has a nice structure, views and a description that help people to get insights.
+
 You can also store and share your own datasets on the DataHub
 
 As a programmer, you may want to automate the process of getting or storing the data. Also you may want to integrate your project and the DataHub.
@@ -93,7 +94,9 @@ const dataset = await Dataset.load(datasetUrl);
 const resources = await datahub.get(dataset);
 ```
 `Dataset.load()` takes a path to the data package and returns a dataset object: https://github.com/datahq/data.js#datasets
+
 `datahub-client.get()` method accept the dataset object and returns an array with resources from it.
+
 Each resource in the resources is the special File object from the `data.js` lib: https://github.com/datahq/data.js#files
 
 ## info
