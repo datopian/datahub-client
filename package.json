@@ -46,7 +46,7 @@
     "data.js": "^0.11.0",
     "events": "^1.1.1",
     "form-data": "^2.3.1",
-    "inquirer": "^4.0.0",
+    "inquirer": "4.0.2",
     "lodash": "^4.17.4",
     "markdown-table": "^1.1.1",
     "mkdirp": "^0.5.1",

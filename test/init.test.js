@@ -66,9 +66,9 @@ test('createDataset', async t => {
     ],
     licenses: [
       {
-        name: 'ODC-PDDL-1.0',
+        name: 'ODC-PDDL',
         path: 'http://opendatacommons.org/licenses/pddl/',
-        title: 'Open Data Commons Public Domain Dedication and License v1.0'
+        title: 'Open Data Commons Public Domain Dedication and License'
       }
     ]
   }
