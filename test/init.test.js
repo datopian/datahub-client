@@ -4,10 +4,11 @@ const {Dataset} = require('data.js')
 const run = require('inquirer-test')
 const {ENTER} = require('inquirer-test')
 
-const {scanDir, addResource} = require('../lib/init')
+const {Init} = require('../lib/init')
 
 test.serial('checks scanDir function', async t => {
-  const res = await scanDir('test/fixtures/readdirTest/')
+  const initializer = new Init({interactive: false})
+  const res = await initializer.scanOnlyDir('test/fixtures/readdirTest/')
   const exp = {
     files:
      ['sample1.csv', 'sample2.json'],
@@ -19,9 +20,10 @@ test.serial('checks scanDir function', async t => {
 test.serial('adding resources - addResource function', async t => {
   const dpObj = await Dataset.load('test/fixtures/dp-test/datapackage.json')
 
+  const initializer = new Init({interactive: false})
   t.true(dpObj.resources.length === 1)
   const path_ = path.resolve(__dirname, './fixtures/sample.csv')
-  await addResource(path_, dpObj)
+  await initializer.addResource(path_, dpObj)
   t.true(dpObj.resources.length === 2)
   t.is(dpObj.resources[1].descriptor.name, 'sample')
 })
@@ -53,7 +55,8 @@ test.serial('adding tabular data should include schema', async t => {
     }
   }
   const path_ = path.resolve(__dirname, './fixtures/sample.csv')
-  await addResource(path_, dpObj)
+  const initializer = new Init({interactive: false})
+  await initializer.addResource(path_, dpObj)
   t.deepEqual(dpObj.resources[1].descriptor.schema.fields, expResourceDescriptor.schema.fields)
 })
 
@@ -67,6 +70,7 @@ test.serial('adding non tabular file', async t => {
     format: 'json',
     mediatype: "application/json"
   }
-  await addResource('test/fixtures/dp-test/second-resource-non-tabular.json', dpObj)
+  const initializer = new Init({interactive: false})
+  await initializer.addResource('test/fixtures/dp-test/second-resource-non-tabular.json', dpObj)
   t.deepEqual(dpObj.resources[1].descriptor, expResourceDescriptor)
 })

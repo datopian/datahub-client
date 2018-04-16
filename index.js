@@ -1,7 +1,7 @@
 const cat = require('./lib/cat')
 const {get} = require('./lib/get')
 const info = require('./lib/info')
-const init = require('./lib/init')
+const {Init} = require('./lib/init')
 const {login} = require('./lib/login')
 const {authenticate} = require('./lib/login')
 const {Validator} = require('./lib/validate')
@@ -16,7 +16,7 @@ module.exports = {
   cat,
   get,
   info,
-  init,
+  Init,
   login,
   authenticate,
   Validator,
