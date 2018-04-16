@@ -1,75 +1,77 @@
-const path = require('path')
 const test = require('ava')
-const {Dataset} = require('data.js')
-const run = require('inquirer-test')
-const {ENTER} = require('inquirer-test')
 
 const {Init} = require('../lib/init')
 
-test.serial('checks scanDir function', async t => {
-  const initializer = new Init({interactive: false})
-  const res = await initializer.scanOnlyDir('test/fixtures/readdirTest/')
-  const exp = {
-    files:
-     ['sample1.csv', 'sample2.json'],
-    dirs: ['dir']
-  }
-  t.deepEqual(res, exp)
+
+const initializer = new Init({
+  interactive: false,
+  path_: 'test/fixtures/readdir-test/'
 })
 
-test.serial('adding resources - addResource function', async t => {
-  const initializer = new Init({interactive: false})
-  initializer.dpObj = await Dataset.load('test/fixtures/dp-test/datapackage.json')
-  t.true(initializer.dpObj.resources.length === 1)
-  const path_ = path.resolve(__dirname, './fixtures/sample.csv')
-  await initializer.addResource(path_)
-  t.true(initializer.dpObj.resources.length === 2)
-  t.is(initializer.dpObj.resources[1].descriptor.name, 'sample')
-})
-
-test.serial('adding tabular data should include schema', async t => {
-  const expResourceDescriptor = {
-    name: 'sample',
-    path: 'sample.csv',
-    format: 'csv',
-    schema: {
-      fields: [
-        {
-          format: 'default',
-          name: 'number',
-          type: 'integer'
+test('createDataset', async t => {
+  const descriptor = await initializer.createDataset()
+  const expected = {
+    name: 'readdir-test',
+    title: 'Readdir test',
+    description: 'This a sample README file.\n',
+    readme: 'This a sample README file.\n',
+    resources: [
+      {
+        dialect: {
+          delimiter: ",",
+          quoteChar: "\""
         },
-        {
-          format: 'default',
-          name: 'string',
-          type: 'string'
-        },
-        {
-          format: 'default',
-          name: 'boolean',
-          type: 'boolean'
+        encoding: "ISO-8859-1",
+        format: "csv",
+        mediatype: "text/csv",
+        name: "sample1",
+        path: "test/fixtures/readdir-test/sample1.csv",
+        pathType: "local",
+        schema: {
+          fields: [
+            {
+              format: "default",
+              name: "number",
+              type: "integer",
+            },
+            {
+              format: "default",
+              name: "string",
+              type: "string",
+            },
+            {
+              format: "default",
+              name: "boolean",
+              type: "boolean",
+            }
+          ],
+          missingValues: ['']
         }
-      ]
-    }
+      },
+      {
+        encoding: "ISO-8859-9",
+        format: "",
+        name: "sample2",
+        path: "test/fixtures/readdir-test/dir/sample2",
+        pathType: "local"
+      },
+      {
+        encoding: "UTF-8",
+        format: "json",
+        mediatype: "application/json",
+        name: "sample3",
+        path: "test/fixtures/readdir-test/dir/dir2/sample3.json",
+        pathType: "local",
+      }
+    ],
+    licenses: [
+      {
+        name: 'ODC-PDDL-1.0',
+        path: 'http://opendatacommons.org/licenses/pddl/',
+        title: 'Open Data Commons Public Domain Dedication and License v1.0'
+      }
+    ]
   }
-  const path_ = path.resolve(__dirname, './fixtures/sample.csv')
-  const initializer = new Init({interactive: false})
-  initializer.dpObj = await Dataset.load('test/fixtures/dp-test/datapackage.json')
-  await initializer.addResource(path_)
-  t.deepEqual(initializer.dpObj.resources[1].descriptor.schema.fields, expResourceDescriptor.schema.fields)
-})
 
-test.serial('adding non tabular file', async t => {
-  const expResourceDescriptor = {
-    encoding: "ISO-8859-9",
-    name: 'second-resource-non-tabular',
-    path: 'test/fixtures/dp-test/second-resource-non-tabular.json',
-    pathType: "local",
-    format: 'json',
-    mediatype: "application/json"
-  }
-  const initializer = new Init({interactive: false})
-  initializer.dpObj = await Dataset.load('test/fixtures/dp-test/datapackage.json')
-  await initializer.addResource('test/fixtures/dp-test/second-resource-non-tabular.json')
-  t.deepEqual(initializer.dpObj.resources[1].descriptor, expResourceDescriptor)
+  t.deepEqual(descriptor, expected)
 })
