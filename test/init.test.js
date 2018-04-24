@@ -5,7 +5,7 @@ const {Init} = require('../lib/init')
 
 const initializer = new Init({
   interactive: false,
-  path_: 'test/fixtures/readdir-test/'
+  path_: 'test/fixtures/readdir test/'
 })
 
 test('createDataset', async t => {
@@ -25,7 +25,7 @@ test('createDataset', async t => {
         format: "csv",
         mediatype: "text/csv",
         name: "sample1",
-        path: "test/fixtures/readdir-test/sample1.csv",
+        path: "test/fixtures/readdir test/sample1.csv",
         pathType: "local",
         schema: {
           fields: [
@@ -52,7 +52,7 @@ test('createDataset', async t => {
         encoding: "ISO-8859-9",
         format: "",
         name: "sample2",
-        path: "test/fixtures/readdir-test/dir/sample2",
+        path: "test/fixtures/readdir test/dir/sample2",
         pathType: "local"
       },
       {
@@ -60,7 +60,7 @@ test('createDataset', async t => {
         format: "json",
         mediatype: "application/json",
         name: "sample3",
-        path: "test/fixtures/readdir-test/dir/dir2/sample3.json",
+        path: "test/fixtures/readdir test/dir/dir2/sample3.json",
         pathType: "local",
       }
     ],
