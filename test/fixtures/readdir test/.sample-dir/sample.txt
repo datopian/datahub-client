@@ -1,0 +1,1 @@
+This file shouldn't be in the resources as it is inside "hidden" directory (starts with .).
